@@ -15,6 +15,11 @@
   (is (= (example-transform {} {:value "x"})
          "x")))
 
+(deftest test-inc-transform
+  (is (not= (inc-transform {} {:value 0}) 0))
+  (is (= (inc-transform {} {:value 0}) 1))
+  (is (= (inc-transform {} {:value 1}) 2)))
+
 ;; Build an application, send a message to a transform and check the transform
 ;; state
 

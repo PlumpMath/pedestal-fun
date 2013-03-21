@@ -8,9 +8,15 @@
 (defn example-transform [transform-state message]
   (:value message))
 
-(def example-app
-  {:transform {:example-transform {:init "Hello World!" :fn example-transform}}})
+(defn inc-transform [transform-state message]
+  (inc (:value message)))
 
+(def example-app {:transform {:example-transform
+                              {:init (str "Hello World")
+                               :fn example-transform}
+                              :inc-transform
+                              {:init 0
+                               :fn inc-transform}}})
 
 ;; Once this behavior works, run the Data UI and record
 ;; rendering data which can be used while working on a custom
