@@ -5,7 +5,8 @@
                  [domina "1.0.1"]
                  [ch.qos.logback/logback-classic "1.0.6"]
                  [io.pedestal/pedestal.app "0.1.0"]
-                 [io.pedestal/pedestal.app-tools "0.1.0"]]
+                 [io.pedestal/pedestal.app-tools "0.1.0"]
+                 [lonocloud/synthread "1.0.3"]]
   :profiles {:dev {:source-paths ["dev"]}}
   :source-paths ["app/src" "app/templates"]
   :resource-paths ["config"]
