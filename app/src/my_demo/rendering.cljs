@@ -51,7 +51,10 @@
   ;; This function responds to a :value event. It uses the
   ;; `update-t` function to update the template at `path` with the new
   ;; values in the passed map.
-  (templates/update-t renderer path {:message new-value}))
+
+  ;; need to coerce to a string otherwise a completly misleading error
+  ;; pops up that wastes a lot of your time
+  (templates/update-t renderer path {:message (str new-value)}))
 
 ;; The data structure below is used to map rendering data to functions
 ;; which handle rendering for that specific change. This function is
@@ -72,8 +75,19 @@
    [:node-destroy   [:io.pedestal.app/view-example-transform] d/default-exit]
    ;; All :node-create deltas for this path will be handled by the
    ;; function `render-message`.
-   [:value [:io.pedestal.app/view-example-transform] render-message]])
+   [:value [:io.pedestal.app/view-example-transform] render-message]
+
+
+   [:node-create  [:io.pedestal.app/view-inc-transform] render-page]
+  ;; All :node-destroy deltas for this path will be handled by the
+  ;; library function `d/default-exit`.
+  [:node-destroy [:io.pedestal.app/view-inc-transform] d/default-exit]
+  ;; All :node-create deltas for this path will be handled by the
+  ;; function `render-message`.
+  [:value [:io.pedestal.app/view-inc-transform] render-message]
+  ]
 
 ;; In render-config, paths can use wildcard keywords :* and :**. :*
 ;; means exatcly one segment with any value. :** means 0 or more
 ;; elements.
+)
