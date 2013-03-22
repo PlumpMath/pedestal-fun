@@ -36,6 +36,17 @@
     ;; effects there.
     ;; (app/consume-effect app services-fn)
     ;;
+
+    ;; Watch to see what happens
+    (.log js/console "app-model initialized as " (pr-str app-model))
+    (add-watch app-model :console-logger
+               (fn [key ref old new]
+                 (.log js/console "app-model changed to " (pr-str new))))
+
+    ;; A little noisy to have this start up every time.  The app is a
+    ;; plan old map describing the dataflow
+    ;; (.log js/console "app initilized as " (pr-str app))
+
     ;; Start the application
     (app/begin app)
     ;; Returning the app and app-model from the main function allows

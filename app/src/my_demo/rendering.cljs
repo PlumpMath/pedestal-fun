@@ -20,6 +20,9 @@
 ;; behavior. This example does not use the transmitter.
 
 (defn render-page [renderer [_ path] transmitter]
+  (.log js/console "render-page" (pr-str renderer) (pr-str _) (pr-str path)
+        (pr-str transmitter))
+
   (let [;; The renderer that we are using here helps us map changes to
         ;; the UI tree to the DOM. It keeps a mapping of paths to DOM
         ;; ids. The `get-parent-id` function will return the DOM id of
@@ -44,6 +47,7 @@
     (dom/append! (dom/by-id parent) (html {:id id :message ""}))))
 
 (defn render-message [renderer [_ path _ new-value] transmitter]
+  (.log js/console "render-message" (pr-str renderer) (pr-str path))
   ;; This function responds to a :value event. It uses the
   ;; `update-t` function to update the template at `path` with the new
   ;; values in the passed map.
